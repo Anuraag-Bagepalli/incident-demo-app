@@ -55,32 +55,17 @@ app.post('/api/success-blue', (req, res) => {
   });
 });
 
-// Failing button 1 -> Intentional backend failure 1
+// Button 1 now handles the invalid demo action without an unhandled exception.
+// It remains non-200 so the UI does not change color, but it no longer emits
+// an IntentionalPrototypeError into PM2.
 app.post('/api/fail-one', (req, res) => {
-  const errorObj = new Error('Test failure from button one');
-  errorObj.name = 'IntentionalPrototypeError';
-
-  const logPayload = {
-    level: 'error',
-    service: SERVICE_NAME,
-    environment: ENVIRONMENT,
-    route: '/api/fail-one',
-    error_type: errorObj.name,
-    message: errorObj.message,
-    stack_trace: errorObj.stack,
+  res.status(400).json({
+    status: 'rejected',
+    error_type: 'HandledValidationError',
+    message: 'The demo action was rejected by validation.',
+    handled: true,
     request_id: req.id,
     timestamp: new Date().toISOString()
-  };
-
-  // Write exact single-line JSON log to stderr for PM2 to capture
-  console.error(JSON.stringify(logPayload));
-
-  res.status(500).json({
-    status: 'error',
-    error_type: errorObj.name,
-    message: errorObj.message,
-    request_id: req.id,
-    timestamp: logPayload.timestamp
   });
 });
 
