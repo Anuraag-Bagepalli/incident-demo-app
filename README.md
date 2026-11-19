@@ -33,3 +33,7 @@ After the branch is pushed, mark the Jira issue `Done`. The LangFlow PR flow
 checks for `fix/DEMO-123` and creates a pull request into `main`.
 
 Do not commit `.env`, PM2 logs, runtime state, or credentials.
+
+## Incident automation verification
+
+The fix/SUP-3 branch is a documentation-only verification of the local incident-to-Jira-to-PR demo. Resolving SUP-3 moves it to Completed and lets LangFlow open a PR into main. Developers still implement and push real fixes before resolving their tickets.
