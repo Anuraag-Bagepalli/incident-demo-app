@@ -45,7 +45,7 @@ test('failure action emits exactly one structured error with a stack and correla
   assert.match(logged[0].stack_trace, /ServiceUnavailableError/);
 });
 test('profile edits and preferences produce successful API logs', async () => {
-  const p = await fetch(`${baseUrl}/api/my-profile`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: 'Maya Lawson', bio: 'Updated demo profile' }) });
+  const p = await fetch(`${baseUrl}/api/my-profile`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: 'Mithun', bio: 'Updated demo profile' }) });
   assert.equal(p.status, 200);
   assert.equal((await p.json()).profile.bio, 'Updated demo profile');
   const s = await fetch(`${baseUrl}/api/settings`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ weeklyDigest: false }) });
